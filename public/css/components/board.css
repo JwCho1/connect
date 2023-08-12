@@ -47,11 +47,22 @@
     justify-content: center;
 
 }
-
-.free{
+.board__group1{
+    padding: 4px 10px;
+    font-size: 16px;
+    background-color:var(--sub-color1);
+    width: auto;
+    border-radius: 10px;
+    color:  var(--sub-color8);
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--sub-color3);
     color: var(--main-color);
+
 }
+
 
 
 .board__stack span{
@@ -67,6 +78,8 @@
     font-weight: bold;
     
 }
+
+
 
 .board__title{
     font-size: 17px;
