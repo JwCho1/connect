@@ -33,11 +33,11 @@ router.post("/write", (req, res) => {
       if (err) {
         console.error("Error:", err);
         res.send(`<script>alert("전송 실패");
-                location.href="http://localhost:3000/"</script>`);
+                location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app/"</script>`);
       } else {
         idx_id = rows.insertId;
         res.send(`<script>alert("업로드 되었습니다.");
-                location.href="http://localhost:3000/detail?a=${idx_id}"</script>`); // 새 포스트의 상세 페이지로 리디렉션합니다.
+                location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app/detail?a=${idx_id}"</script>`); // 새 포스트의 상세 페이지로 리디렉션합니다.
       }
     }
   );
@@ -60,13 +60,13 @@ router.post('/join', (req, res) => {
           console.log('회원가입 결과',rows)
           if(rows.affectedRows>0){
               res.send(`<script>alert('회원가입 성공했습니다 로그인해주세요')
-                  location.href="http://localhost:3000/"</script>`)
+                  location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app"</script>`)
           }    
      // 4. 만약 회원가입에 성공하면 alert로 회원가입 성공! => 메인창 이동
       })
   } else {
       res.send(`<script>alert("비밀번호 확인이 다릅니다.")
-      location.href="http://localhost:3000/join"</script>`)
+      location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app/join"</script>`)
   }
   // 5. 만약 회원가입에 실패하면 alert로 회원가입 실패 ... => 회원가입 창으로 이동
 
@@ -92,12 +92,12 @@ router.post('/login', (req,res)=>{
          console.log('로그인 성공!', rows)
           req.session.user = rows[0];
           res.send(`<script>alert("환영합니다");
-          location.href="http://localhost:3000/page/1"</script>`)
+          location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app/page/1"</script>`)
       } 
          else {
          console.log('로그인 실패!')
          res.send(`<script>alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
-         location.href="http://localhost:3000/"</script>`)
+         location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app"</script>`)
       }
 
    })
@@ -111,7 +111,7 @@ router.get('/logout',(req,res)=>{
   // 1. 세션 삭제
   req.session.destroy()
   // 2. 메인페이지에 다시 접근
-  res.send(`<script>location.href="http://localhost:3000/"</script>`)
+  res.send(`<script>location.href="https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app/"</script>`)
 })
 
 
