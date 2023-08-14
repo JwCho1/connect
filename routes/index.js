@@ -112,7 +112,7 @@ router.post('/search',(req,res)=>{
   console.log(req.body.content)
   const search = req.body.content
 
-  let sql = `SELECT a.*, b.user_name FROM tb_board a INNER JOIN tb_user b ON a.user_id = b.user_id WHERE a.b_title LIKE '%${search}%' OR a.b_content LIKE '%${search}%' OR b.user_name LIKE '%${search}%' OR a.b_type LIKE '%${search}%' WHERE a.b_permit = 'YES' order by a.created_at desc;`
+  let sql = `SELECT a.*, b.user_name FROM tb_board a INNER JOIN tb_user b ON a.user_id = b.user_id WHERE a.b_title LIKE '%${search}%' OR a.b_content LIKE '%${search}%' OR b.user_name LIKE '%${search}%' OR a.b_type LIKE '%${search}%' AND a.b_permit = 'YES' order by a.created_at desc;`
 
   conn.query(sql,[search],(err, rows)=>{
    res.render('screen/main', { data:rows , obj: req.session.user })
