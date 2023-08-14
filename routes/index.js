@@ -9,6 +9,10 @@ router.get("/", (req, res) => {
 
 // 페이징 라우터 추가
 router.get("/page/:pageNumber", async (req, res) => {
+  if (!req.session.user) {
+    res.send(`<script>alert("로그인을 해주세요!!!");location.href="${url}"</script>`);
+    return;
+  }
   const pageNumber = parseInt(req.params.pageNumber, 10);
   
   if (isNaN(pageNumber) || pageNumber < 1) {
@@ -197,6 +201,10 @@ router.get('/screen/login', (req, res) => {
 })
 
 router.get("/detail", (req, res) => {
+  if (!req.session.user) {
+    res.send(`<script>alert("로그인을 해주세요!!!");location.href="${url}"</script>`);
+    return;
+  }
   // req.query에서 post_idx 값 가져오기
   const post_idx = req.query.a;
 
