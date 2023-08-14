@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
   let user_id = req.session.user.user_id;
 
   let sql_group_info = `
-  SELECT A.user_id, B.party_title, B.party_idx, C.user_name
+  SELECT A.user_id, B.party_title, B.party_idx, C.user_name, (A.user_id = ?) as current_user
   FROM tb_join A
   INNER JOIN tb_party B ON A.party_idx = B.party_idx
   INNER JOIN tb_user C ON A.user_id = C.user_id
