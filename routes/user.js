@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const conn = require("../config/database");
-let url = 'https://port-0-connect-eu1k2lll7tjjl4.sel3.cloudtype.app/'
+let url = 'https://port-0-connect-3prof2lll7umkj6.sel3.cloudtype.app/'
 
 
 router.post("/write", (req, res) => {
