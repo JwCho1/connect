@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const conn = require("../config/database");
 const io = require("socket.io-client")
-let url = 'https://port-0-connect-eu1k2lll7tjjl4.sel3.cloudtype.app/'
+let url = 'https://connectschool.servehttp.com/'
 
 //채팅방 개설하기
 router.post('/chatroom_create',(req,res)=>{
