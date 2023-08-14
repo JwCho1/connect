@@ -44,11 +44,13 @@ router.get('/', (req, res) => {
   let data = req.query.data;
   let user_id = req.session.user.user_id;
 
-  let sql_group_info = `SELECT A.user_id, B.party_title, B.user_id, B.party_idx, C.user_name
-                        FROM tb_join A
-                        INNER JOIN tb_party B ON A.party_idx = B.party_idx
-                        INNER JOIN tb_user C ON A.user_id = C.user_id
-                        WHERE A.user_id = ? AND B.party_idx = ?;`;
+  let sql_group_info = `
+  SELECT A.user_id, B.party_title, B.party_idx, C.user_name
+  FROM tb_join A
+  INNER JOIN tb_party B ON A.party_idx = B.party_idx
+  INNER JOIN tb_user C ON A.user_id = C.user_id
+  WHERE B.party_idx = ?;
+`;
 
   conn.query(sql_group_info, [user_id, data], (err, rows_group_info) => {
     if (err) {
