@@ -9,14 +9,17 @@
         <div class="group__notice">팀 소통</div>
 
     </div>
-    {%for member in group_info%}
-    <div>
-        {{member.user_name}}
+    <div class="chat-room_user">
+        <h1>대화상대</h1>
+        <ul class="chat-room_userbox">
+            {{member.user_name}}
+            <li class="chat-room_userlis">
+            </li>
+        </ul>
     </div>
-    {%endfor%}
     {% include 'components/notice.html' %}
     {% include 'components/canvan.html' %}
-    
+
 </main>
 
 {% include 'components/footer.html' %}
