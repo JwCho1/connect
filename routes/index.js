@@ -166,14 +166,12 @@ router.get("/join", (req, res) => {
 });
 
 router.get("/write", (req, res) => {
-  router.get("/write", (req, res) => {
     if (!req.session.user) {
       res.send(`<script>alert("로그인을 해주세요!!!");location.href="${url}"</script>`);
       return;
     }
     res.render("screen/write", { obj: req.session.user });
   });
-});
 
 router.delete('/deletePost/:postIdx', (req, res) => {
   const postIdx = req.params.postIdx;
