@@ -3,7 +3,7 @@
 {% include 'components/header.html' %}
 
 <main class="group">
-    {%group_info i in group_info%}
+    {%for group_info i in group_info%}
     <h1 class='group__title'>{{group_info.party_title}}</h1>
     {%endfor%}
     <div class="group__nav">
