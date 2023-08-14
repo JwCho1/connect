@@ -10,7 +10,8 @@
         <div class="detail__info">
             <span>{{i.user_name}}</span>
             <time class="post-date" data-date="{{ i.created_at }}">-</time>
-            {% if loginUser and loginUser.user_id == i.user_id %}
+
+            {% if obj and obj.user_id == i.user_id %}
             <span id="delete-post-btn" style="cursor: pointer;">삭제</span>
             {% endif %}
         </div>
@@ -213,7 +214,7 @@
                 });
                 if (response.ok) {
                     alert('글이 성공적으로 삭제되었습니다.');
-                    window.location.href = '/'; // 또는 다른 페이지로 이동
+                    window.location.href = '/page/1' // 또는 다른 페이지로 이동
                 } else {
                     alert('글 삭제 중 오류가 발생했습니다.');
                 }
