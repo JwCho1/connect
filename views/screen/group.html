@@ -9,11 +9,11 @@
         <div class="group__notice">팀 소통</div>
 
     </div>
-    <div class="chat-room_user">
-        <h1>그룹 참여 인원</h1>
-        <ul class="chat-room_userbox">
+    <div">
+        <ul>
+            <li>
+                {%for member in group_info%}
             {{member.user_name}}
-            <li class="chat-room_userlis">
             </li>
         </ul>
     </div>
