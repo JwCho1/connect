@@ -38,7 +38,7 @@ router.post("/notice", (req, res) => {
 
 router.get('/', (req, res) => {
   if (!req.session.user) {
-    res.send(`<script>alert("로그인을 해주세요!!!");location.href="${url}"</script>`);
+    res.redirect("/");
     return;
   }
   let data = req.query.data;
