@@ -39,11 +39,6 @@ router.post("/notice", (req, res) => {
 router.get('/', (req, res) => {
   let data = req.query.data;
   let user_id = req.session.user.user_id;
-
-  let sql_party_users = `SELECT A.user_id, A.username
-                       FROM tb_user A INNER JOIN tb_join B
-                       ON A.user_id = B.user_id
-                       WHERE B.party_idx = ?;`;
   let sql_group_info = `SELECT A.user_id, B.party_title, B.user_id, B.party_idx
                         FROM tb_join A INNER JOIN tb_party B
                         ON A.party_idx = B.party_idx
@@ -60,7 +55,11 @@ router.get('/', (req, res) => {
 
       let sql_notice = `SELECT noti_content, created_at, user_id, party_idx FROM tb_notification WHERE party_idx = ?;`;
       let sql_todo = `SELECT todo, member, DATE_FORMAT(deadline, '%m / %d') AS formattedDeadline, in_process, process_idx, party_idx FROM tb_canvan WHERE party_idx = ?;`;
-
+      let sql_party_users = `SELECT A.user_id, A.username
+      FROM tb_user A INNER JOIN tb_join B
+      ON A.user_id = B.user_id
+      WHERE B.party_idx = ?;`;
+      
       conn.query(sql_notice, [party_idx], (err, rows_notice) => {
         if (err) {
           console.error('Error retrieving data:', err);
