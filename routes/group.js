@@ -39,6 +39,7 @@ router.post("/notice", (req, res) => {
 router.get('/', (req, res) => {
   let data = req.query.data;
   let user_id = req.session.user.user_id;
+
   let sql_group_info = `SELECT A.user_id, B.party_title, B.user_id, B.party_idx
                         FROM tb_join A INNER JOIN tb_party B
                         ON A.party_idx = B.party_idx
@@ -55,11 +56,7 @@ router.get('/', (req, res) => {
 
       let sql_notice = `SELECT noti_content, created_at, user_id, party_idx FROM tb_notification WHERE party_idx = ?;`;
       let sql_todo = `SELECT todo, member, DATE_FORMAT(deadline, '%m / %d') AS formattedDeadline, in_process, process_idx, party_idx FROM tb_canvan WHERE party_idx = ?;`;
-      let sql_party_users = `SELECT A.user_id, A.username
-      FROM tb_user A INNER JOIN tb_join B
-      ON A.user_id = B.user_id
-      WHERE B.party_idx = ?;`;
-      
+
       conn.query(sql_notice, [party_idx], (err, rows_notice) => {
         if (err) {
           console.error('Error retrieving data:', err);
@@ -70,14 +67,8 @@ router.get('/', (req, res) => {
               console.error('Error retrieving data:', err);
               res.status(500).json({ message: 'Database error' });
             } else {
-              conn.query(sql_party_users, [party_idx], (err, rows_party_users) => {
-                if (err) {
-                  console.error('Error retrieving data:', err);
-                  res.status(500).json({ message: 'Database error' });
-                } else {
-                  res.render('screen/group', { obj: req.session.user, notice: rows_notice, to: rows_todo, group_info: rows_group_info, group: data, party_users: rows_party_users });
-                }
-              });
+              // 공지사항 목록과 그룹 데이터를 렌더링하는 group   이지에 데이터 전달
+              res.render('screen/group', { obj: req.session.user, notice: rows_notice, to: rows_todo, group_info: rows_group_info, group: data });
             }
           });
         }
