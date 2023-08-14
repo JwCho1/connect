@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const conn = require("../config/database");
-let url = 'https://connectschool.servehttp.com'
+let url = 'https://connectschool.servehttp.com/'
 
 
 router.post("/write", (req, res) => {
