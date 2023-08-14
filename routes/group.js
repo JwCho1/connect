@@ -68,7 +68,7 @@ router.get('/', (req, res) => {
               res.status(500).json({ message: 'Database error' });
             } else {
               // 공지사항 목록과 그룹 데이터를 렌더링하는 group   이지에 데이터 전달
-              console.log(group_info)
+              console.log(rows_group_info)
               res.render('screen/group', { obj: req.session.user, notice: rows_notice, to: rows_todo, group_info: rows_group_info, group: data });
             }
           });
