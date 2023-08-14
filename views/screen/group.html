@@ -12,8 +12,11 @@
 
     {% include 'components/notice.html' %}
     {% include 'components/canvan.html' %}
-    
-
+    {%for member in group_info%}
+    <div>
+        {{member.user_name}}
+    </div>
+    {%endfor%}
 </main>
 
 {% include 'components/footer.html' %}
