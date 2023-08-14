@@ -6,9 +6,10 @@ let url = 'https://connectschool.servehttp.com/'
 
 router.post("/write", (req, res) => {
   if (!req.session.user) {
-    req.redirect("/")
+    res.redirect("/");
     return;
   }
+  
   let {
     title,
     content,
