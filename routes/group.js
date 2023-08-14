@@ -37,6 +37,11 @@ router.post("/notice", (req, res) => {
 });
 
 router.get('/', (req, res) => {
+  if (!req.session.user) {
+    req.redirect("/")
+    return;
+  }
+
   let data = req.query.data;
   let user_id = req.session.user.user_id;
 
