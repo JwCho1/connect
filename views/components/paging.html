@@ -57,16 +57,9 @@
   {% endfor %}
   <a href="/page/{{ totalPages }}" class="paging-right"><i class="fa-solid fa-chevron-right"></i></a>
 </div>
-<div class="pagination">
-  <a href="/project/1" class="paging-left"><i class="fa-solid fa-chevron-left"></i></a>
-  {% for pageNumber in range(1, totalPages + 1) %}
-  <a href="/project/{{ pageNumber }}" class="page-link">{{ pageNumber
-    }}</a>
-  {% endfor %}
-  <a href="/project/{{ totalPages }}" class="paging-right"><i class="fa-solid fa-chevron-right"></i></a>
-</div>
+
 <script>
-  const currentPage = parseInt(window.location.href.match(/project\/(\d+)/)[1], 5);
+  const currentPage = parseInt(window.location.href.match(/page\/(\d+)/)[1], 5);
   let pageLinks = document.querySelectorAll('.page-link');
   for (let i = 0; i < pageLinks.length; i++) {
     pageLinks[i].classList.remove('bordered');
@@ -74,5 +67,4 @@
       pageLinks[i].classList.add('bordered');
     }
   }
-  
 </script>
