@@ -157,7 +157,7 @@ router.post('/modify',(req,res)=>{
   
 // 회원탈퇴
 router.post('/delete_user', (req, res) => {
-  console.log('회원아이디',req.body.userId)
+  console.log('회원아이디',req)
   const userId = req.body.userId;
   const query = `UPDATE tb_user SET user_status = 'n' WHERE user_id = ?`;
 
