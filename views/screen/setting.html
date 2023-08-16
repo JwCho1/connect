@@ -43,7 +43,7 @@
     }
     const Id = document.getElementById('id');
     const userId = Id.textContent;
-    fetch(`${urlcloud}user/delete_user`, {
+    fetch(`${urlcloud}/user/delete_user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
