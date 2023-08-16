@@ -93,6 +93,10 @@ WHERE a.party_idx = ?;
   });
 });
 
+
+
+
+
 router.post("/update/:id", (req, res) => {
   const process_idx = parseInt(req.params.id);
   const { in_process } = req.body;

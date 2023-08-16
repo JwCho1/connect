@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const conn = require("../config/database");
-let url = 'https://connectschool.servehttp.com/'
+let url = 'http://localhost:3000'
 
 router.get("/", (req, res) => {
   res.render('screen/login')
@@ -70,7 +70,7 @@ router.post('/user_search',(req,res)=>{
       res.json('아이디가 존재하지 않네요😥')
     }else{
        console.log(rows[0].user_id,rows[0].user_class)
-       res.json({ user_id: rows[0].user_id, user_class: rows[0].user_class });
+       res.json({ search : rows });
     }
   })
 })
@@ -125,6 +125,7 @@ router.get('/project',(req,res)=>{
   conn.query(sql,(err, rows)=>{
     res.render('screen/main', { data:rows , obj: req.session.user })
    })
+
 })
 // 카테고리 스터디 별 모음 기능
 router.get('/study',(req,res)=>{
@@ -169,12 +170,12 @@ router.get("/join", (req, res) => {
 });
 
 router.get("/write", (req, res) => {
-    if (!req.session.user) {
-      res.send(`<script>alert("로그인을 해주세요!!!");location.href="${url}"</script>`);
-      return;
-    }
-    res.render("screen/write", { obj: req.session.user });
-  });
+  if (!req.session.user) {
+    res.send(`<script>alert("로그인을 해주세요!!!");location.href="${url}"</script>`);
+    return;
+  }
+  res.render("screen/write", { obj: req.session.user });
+});
 
 router.delete('/deletePost/:postIdx', (req, res) => {
   const postIdx = req.params.postIdx;
