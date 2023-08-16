@@ -120,13 +120,47 @@ router.post('/search',(req,res)=>{
 })
 
 // 카테고리 프로젝트 별 모음 기능
-router.get('/project',(req,res)=>{
-  let sql = `SELECT tb_board.*,tb_user.user_name FROM tb_board INNER JOIN tb_user ON tb_board.user_id = tb_user.user_id WHERE tb_board.b_permit = 'YES' and SUBSTRING_INDEX(b_category, ',', 1) = '["프로젝트"';`
-  conn.query(sql,(err, rows)=>{
-    res.render('screen/main', { data:rows , obj: req.session.user })
-   })
+router.get('/project/:pageNumber', async (req, res) => {
+  const pageNumber = parseInt(req.params.pageNumber, 10);
+  
+  if (isNaN(pageNumber) || pageNumber < 1) {
+    return res.status(400).send("Invalid page number");
+  }
+ 
+  // 페이징 설정
+  const postsPerPage = 10;
+  const offset = (pageNumber - 1) * postsPerPage;
 
-})
+  let totalPostCount, totalPages;
+  try {
+    totalPostCount = await getProjectPostCount();
+    totalPages = Math.ceil(totalPostCount / postsPerPage); 
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("데이터베이스 에러");
+  }
+
+  let sql = `SELECT tb_board.*,tb_user.user_name FROM tb_board INNER JOIN tb_user ON tb_board.user_id = tb_user.user_id WHERE tb_board.b_permit = 'YES' and SUBSTRING_INDEX(b_category, ',', 1) = '["프로젝트' LIMIT ?, ?;`;
+
+  conn.query(sql, [offset, postsPerPage], (err, rows) => {
+    res.render('screen/main', { data: rows , obj: req.session.user, totalPages: totalPages });
+  });
+});
+
+// 프로젝트 게시물 수 반환 함수 추가
+function getProjectPostCount() {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT COUNT(b_idx) as postCount FROM tb_board WHERE b_permit = 'YES' and SUBSTRING_INDEX(b_category, ',', 1) = '["프로젝트'";`
+    conn.query(query, (err, results, fields) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results[0].postCount);
+      }
+    });
+  });
+}
+
 // 카테고리 스터디 별 모음 기능
 router.get('/study',(req,res)=>{
   let sql = `SELECT tb_board.*,tb_user.user_name FROM tb_board INNER JOIN tb_user ON tb_board.user_id = tb_user.user_id WHERE tb_board.b_permit = 'YES' and SUBSTRING_INDEX(b_category, ',', 1) = '["스터디"';`
